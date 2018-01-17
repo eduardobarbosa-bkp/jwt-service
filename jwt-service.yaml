@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: jwt-service
+  name: jwt-service
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    io.kompose.service: jwt-service
+status:
+  loadBalancer: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: jwt-service
+  name: jwt-service
+spec:
+  replicas: 2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: jwt-service
+    spec:
+      containers:
+      - env:
+        - name: JWT_ADMIN_PASSWORD
+          value: admin
+        - name: JWT_ADMIN_USERNAME
+          value: admin
+        - name: JWT_SECRET_KEY
+          value: secret
+        - name: SPRING_DATA_MONGODB_URI
+          value: mongodb://jwt-mongodb:27017/auth
+        image: eduardobarbosa/jwt-service:1.0
+        name: jwt-service
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}
+

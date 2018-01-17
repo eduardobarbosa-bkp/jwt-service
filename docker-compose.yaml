@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  jwt-service:
+    container_name: jwt-service
+    image: eduardobarbosa/jwt-service:1.0
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://jwt-mongodb:27017/auth
+      - JWT_SECRET_KEY=secret
+      - JWT_ADMIN_USERNAME=admin
+      - JWT_ADMIN_PASSWORD=admin
+    depends_on:
+      - jwt-mongodb
+    ports:
+      - "8080:8080"
+
+  jwt-mongodb:
+    container_name: jwt-mongodb
+    image: mongo
+    ports:
+      - "27017:27017"

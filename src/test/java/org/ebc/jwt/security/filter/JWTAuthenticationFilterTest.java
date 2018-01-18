@@ -52,9 +52,12 @@ public class JWTAuthenticationFilterTest {
     @Test
     public void request_with_token() throws Exception {
         String token = performLogin();
+        //given a valid token with user credentials ROLE_ADMIN_USER
         MockHttpServletRequestBuilder requestBuilder = get(URL_USERS)
                 .header(TokenAuthenticationService.HEADER_STRING, TokenAuthenticationService.TOKEN_PREFIX + " " + token);
+        //when perform a request to /users
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return OK
         perform.andExpect(status().isOk());
     }
 
@@ -64,16 +67,22 @@ public class JWTAuthenticationFilterTest {
                 .setId(UUID.randomUUID().toString())
                 .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.encode(this.jwtSecretKey + "_invalid".getBytes()))
                 .compact();
+        //given an invalid token
         MockHttpServletRequestBuilder requestBuilder = get(URL_USERS)
                 .header(TokenAuthenticationService.HEADER_STRING, TokenAuthenticationService.TOKEN_PREFIX + " " + token);
+        //when perform a request to /users
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return Unauthorized
         perform.andExpect(status().is4xxClientError());
     }
 
     @Test
     public void request_without_token() throws Exception {
+        //given no token
         MockHttpServletRequestBuilder requestBuilder = get(URL_USERS);
+        //when perform a request to /users
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return Unauthorized
         perform.andExpect(status().is4xxClientError());
     }
 

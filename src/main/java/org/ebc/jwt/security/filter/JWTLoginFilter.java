@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.Collections;
 
 /**
+ * This class is responsible to login filter
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

@@ -7,6 +7,8 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Arrays;
 
 /**
+ * This class is responsible to cors filter
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

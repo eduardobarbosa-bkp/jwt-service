@@ -48,12 +48,14 @@ public class JWTLoginFilterTest {
 
     @Test
     public void login_success() throws Exception {
+        //given an user credential valid
         AccountCredentials credentials = new AccountCredentials(this.username, this.password, Collections.<String>emptyList());
         MockHttpServletRequestBuilder requestBuilder = post(URL_LOGIN)
                 .content(objectMapper.writeValueAsString(credentials))
                 .contentType(MediaType.APPLICATION_JSON);
-
+        //when perform a request to /login
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return token
         perform.andExpect(status().isOk());
         String contentAsString = perform.andReturn().getResponse().getContentAsString();
         Map mapJson = objectMapper.readValue(contentAsString, Map.class);
@@ -62,21 +64,26 @@ public class JWTLoginFilterTest {
 
     @Test
     public void login_fail() throws Exception {
+        //given an user credential with invalid password
         AccountCredentials credentials = new AccountCredentials(this.username, INVALID_PASSWORD, Collections.<String>emptyList());
         MockHttpServletRequestBuilder requestBuilder = post(URL_LOGIN)
                 .content(objectMapper.writeValueAsString(credentials));
-
+        //when perform a request to /login
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return Unauthorized
         perform.andExpect(status().isUnauthorized());
     }
 
 
     @Test
     public void login_user_not_found() throws Exception {
+        //given an user credential with invalid username
         AccountCredentials credentials = new AccountCredentials(UUID.randomUUID().toString(), UUID.randomUUID().toString(), Collections.<String>emptyList());
         MockHttpServletRequestBuilder requestBuilder = post(URL_LOGIN)
                 .content(objectMapper.writeValueAsString(credentials));
+        //when perform a request to /login
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return Unauthorized
         perform.andExpect(status().isUnauthorized());
     }
 

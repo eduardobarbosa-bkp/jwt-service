@@ -59,13 +59,16 @@ public class AuthControllerTest {
 
     @Test
     public void register_user_success() throws Exception {
+        //given an valid user credential
         AccountCredentials newUser = new AccountCredentials(NEW_USERNAME, NEW_PASSWORD, Collections.<String>emptyList());
+
         MockHttpServletRequestBuilder requestBuilder = post(URL_REGISTER)
                 .content(objectMapper.writeValueAsString(newUser))
                 .contentType(MediaType.APPLICATION_JSON);
-
+        //when perform a request to /register
         ResultActions perform = mockMvc.perform(requestBuilder);
         perform.andExpect(status().isOk());
+        //then the user must be find on database
         AccountCredentials accountCredentials = repository.findByUsername(NEW_USERNAME);
         assertThat(accountCredentials).isNotNull();
         assertThat(accountCredentials.getUsername()).isEqualTo(NEW_USERNAME);
@@ -75,27 +78,32 @@ public class AuthControllerTest {
 
     @Test(expected = Exception.class)
     public void register_duplicated_user() throws Exception {
+        //given an duplicated user credential
         AccountCredentials newUser = new AccountCredentials(this.username, this.password, Collections.<String>emptyList());
         MockHttpServletRequestBuilder requestBuilder = post(URL_REGISTER)
                 .content(objectMapper.writeValueAsString(newUser))
                 .contentType(MediaType.APPLICATION_JSON);
-
+        //when perform a request to /register
         mockMvc.perform(requestBuilder);
+        //then the user must throw exception
     }
 
 
     @Test
     public void find_users_role_admin() throws Exception {
+        //given an user credential with ROLE_ADMIN_USER
         MockHttpServletRequestBuilder requestBuilder = get(URL_USERS);
         setAuthHeader(requestBuilder, this.username, this.password);
-
+        //when perform a request to /users
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return OK
         perform.andExpect(status().isOk());
     }
 
     @Test
     public void find_users_standard_user() throws Exception {
 
+        //given an user credential without ROLE_ADMIN_USER
         String username = UUID.randomUUID().toString();
         String password = UUID.randomUUID().toString();
 
@@ -104,7 +112,9 @@ public class AuthControllerTest {
         MockHttpServletRequestBuilder requestBuilder = get(URL_USERS);
         setAuthHeader(requestBuilder, username, password);
 
+        //when perform a request to /users
         ResultActions perform = mockMvc.perform(requestBuilder);
+        //then the return Unauthorized
         perform.andExpect(status().is4xxClientError());
 
     }

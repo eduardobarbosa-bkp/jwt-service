@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * This class is responsible to provide the business logic for account credentials
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

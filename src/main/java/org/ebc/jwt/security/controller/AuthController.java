@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 /**
+ * This class is responsible to provide the endpoints for authorization
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

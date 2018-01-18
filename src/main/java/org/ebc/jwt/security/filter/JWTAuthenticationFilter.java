@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
+ * This class is responsible to token filter
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

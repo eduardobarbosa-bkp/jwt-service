@@ -14,6 +14,8 @@ import org.springframework.util.DigestUtils;
 import java.util.Arrays;
 
 /**
+ * This class is responsible to start up the service
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */
@@ -25,9 +27,11 @@ public class JwtServiceApplication {
 		SpringApplication.run(JwtServiceApplication.class, args);
 	}
 
+
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
+			//create an user admin
 			String admUsername = ctx.getEnvironment().getProperty("jwt.admin.username");
 			String admPassword = ctx.getEnvironment().getProperty("jwt.admin.password");
 			AuthRepository repository = ctx.getBean(AuthRepository.class);

@@ -17,6 +17,8 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
+ * This class is responsible to setup the security options
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

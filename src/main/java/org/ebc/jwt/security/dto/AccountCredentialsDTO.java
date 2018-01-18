@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * @version 1.0
  * @author eduardobarbosa
  * @since 11/01/2018
  */

@@ -35,10 +35,10 @@ install:
 # Set the correct project to deploy to
 - gcloud config set project scratch-microservice
 - gcloud -q components update gae-python
-./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
 # Run the unit tests
-./mvnw test -B
+- ./mvnw test -B
 # [START deploy]
 # Deploy the app
 #- gcloud -q preview app deploy app.yaml --promote

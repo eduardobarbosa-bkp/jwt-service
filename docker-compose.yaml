@@ -3,7 +3,7 @@ version: "2"
 services:
   jwt-service:
     container_name: jwt-service
-    image: eduardobarbosa/jwt-service:1.0
+    image: gcr.io/scratch-microservice/jwt-service:v1
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://jwt-mongodb:27017/auth
       - JWT_SECRET_KEY=secret

@@ -47,7 +47,7 @@ spec:
           value: secret
         - name: SPRING_DATA_MONGODB_URI
           value: mongodb://jwt-mongodb:27017/auth
-        image: eduardobarbosa/jwt-service:1.0
+        image: gcr.io/scratch-microservice/jwt-service:v1
         name: jwt-service
         ports:
         - containerPort: 8080
